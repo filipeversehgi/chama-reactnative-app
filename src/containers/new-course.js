@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-export default class componentName extends Component {
+export default class NewCoursePage extends Component {
   constructor(props) {
     super(props);
   }
@@ -9,7 +9,7 @@ export default class componentName extends Component {
   render() {
     return (
       <View>
-        <Text> textInComponent </Text>
+        <Text> Bem vindo! Para começar, vamos adicionar seu primeiro curso: </Text>
       </View>
     );
   }
