@@ -7,13 +7,21 @@ import lodash from 'lodash';
 import LinearGradient from 'react-native-linear-gradient';
 import { ActionButton } from 'react-native-material-ui';
 import { getNextClasses } from '../../utils/class-utils';
+import * as courseService from '../../services/course-service';
 
 class Home extends Component {
 
-    course = Database.courses[0];
-
     static navigationOptions = {
         headerMode: null
+    }
+
+    constructor(props) {
+        super(props);
+
+        courseService.getCurrentCourse()
+            .subscribe(data => {
+                this.state = { course: data };
+            })
     }
 
     handleClick() {
@@ -21,12 +29,12 @@ class Home extends Component {
     }
     
     render() {
-        let classes = this.course.disciplines.reduce((acc, cur) => {
-            acc.push(...cur.classes);
-            return acc;
-        }, []);
+        // let classes = this.course.disciplines.reduce((acc, cur) => {
+        //     acc.push(...cur.classes);
+        //     return acc;
+        // }, []);
 
-        classes = getNextClasses(lodash.orderBy(classes, ['date'], ['asc']));
+        //classes = getNextClasses(lodash.orderBy(classes, ['date'], ['asc']));
 
         return (
             <LinearGradient colors={['#F27121', '#E94057', '#8A2387']} style={styles.linearGradient}>
@@ -36,7 +44,7 @@ class Home extends Component {
                         <Text style={styles.motivation}>Keep up the good work!</Text>
                     </View>
                     <View>
-                        { this.course.disciplines.map((discipline, i) => 
+                        { !!this.course && !!this.course.disciplines && this.course.disciplines.map((discipline, i) => 
                             <Discipline onClick={this.handleClick.bind(this)} discipline={discipline} key={i} />
                         ) }
                     </View>
@@ -44,7 +52,7 @@ class Home extends Component {
                     <View style={styles.nextBox}>
                         <Text style={styles.nextTitle}>Next classes</Text>
                         
-                        { classes.map((c, i) => 
+                        { !!this.course && classes.map((c, i) => 
                             <NextClass onClick={this.handleClick.bind(this)} class={c} key={i} />
                         ) }
                     </View>

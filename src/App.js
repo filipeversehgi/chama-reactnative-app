@@ -8,11 +8,19 @@
 
 import { createStackNavigator } from 'react-navigation';
 import Home from './containers/home/home';
+import StartPage from './containers/start';
 import ViewClass from './containers/home/viewClass';
 
 type Props = {};
 
 export default createStackNavigator({
+  Start: {
+    screen: StartPage,
+    navigationOptions: () => ({
+      title: 'Start',
+      header: null
+    })
+  },
   Home: {
     screen: Home,
     navigationOptions: () => ({

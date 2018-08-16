@@ -1,70 +1,37 @@
-import Database from './../../utils/layoutDb';
+import Database from '../utils/layoutDb';
+import * as StorageService from './storage-service';
 
-class Course {
-    constructor() {
+this.database = Database;
 
-    }
+console.log('- Initializing Class Service');
+this.storageService = StorageService;
+
+console.log('- Retrieving Saved Data');
+this.tables = this.storageService.list();
+console.log(this.tables);
+
+export function getCurrentCourse() {
+    
 }
 
-class Discipline {
-    constructor() {
-
-    }
-
-
-    // Filters a Class Array searching for past classes
-    getPastClasses() {
-        const today = moment();
-        return this.classes.filter(c => moment(c.date).isBefore(today));
-    }
-
-    // Filters a Class Array searching for past classes
-    getNextClasses() {
-        const today = moment();
-        return this.classes.filter(c => moment(c.date).isAfter(today));
-    }
-
-    // Filters a Array searching for only the past and attended classes
-    getAttendedClasses() {
-        return this.getPastClasses().filter(c => c.presence);
-    }
-
-    // Gets the percentage of faults vs presences
-    getPercentage() {
-        const attended = this.getAttendedClasses().length;
-        const total = this.getPastClasses().length;
-
-        return Math.floor(attended / total * 100);
-    }
+export function listCourses() {
+    return this.database.courses.map(c => c.name);
 }
 
-export default class ClassService {
+export function selectCourse(id) {
+    this.currentCourse = database.courses.filter(c => c.id === id);
+    return this.currentCourse;
+}
 
-    constructor() {
-        this.database = Database;
-        this.currentCourse = Database && Database.courses[0];
-        this.currentDiscipline = this.currentCourse && this.currentCourse.disciplines[0];
-    }
+export function selectDiscipline(id) {
+    this.currentDiscipline = this.currentCourse.disciplines.filter(d => d.id === id);
+    return this.currentDiscipline();
+}
 
-    listCourses() {
-        return this.database.courses.map(c => c.name);
-    }
+export function getCurrentCourse() {
+    return this.currentCourse;
+}
 
-    selectCourse(id) {
-        this.currentCourse = database.courses.filter(c => c.id === id);
-        return this.currentCourse;
-    }
-
-    selectDiscipline(id) {
-        this.currentDiscipline = this.currentCourse.disciplines.filter(d => d.id === id);
-        return this.currentDiscipline();
-    }
-
-    getCurrentCourse() {
-        return this.currentCourse;
-    }
-
-    getCurrentDiscipline() {
-        return this.currentDiscipline;
-    }
+export function getCurrentDiscipline() {
+    return this.currentDiscipline;
 }
