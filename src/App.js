@@ -7,10 +7,11 @@
  */
 
 import { createStackNavigator } from 'react-navigation';
-import Home from './containers/home/home';
+import Home from './containers/home';
 import StartPage from './containers/start';
 import ViewClass from './containers/home/viewClass';
 import NewCoursePage from './containers/new-course';
+import NewDisciplinePage from './containers/new-discipline';
 
 type Props = {};
 
@@ -40,7 +41,14 @@ export default createStackNavigator({
     screen: NewCoursePage,
     navigationOptions: () => ({
       title: 'New Course',
-      header: null
+      //header: null
+    })
+  },
+  NewDiscipline: {
+    screen: NewDisciplinePage,
+    navigationOptions: () => ({
+      title: 'New Discipline',
+      //header: null
     })
   }
 })

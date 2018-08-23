@@ -8,11 +8,13 @@ export async function setup() {
 }
 
 export async function store(key, value) {
+    console.log('- Storing', value);
+    const stringValue = JSON.stringify(value);
     try {
-        await AsyncStorage.setItem(`@ChamaStore:${key}`, value);
+        await AsyncStorage.setItem(`@ChamaStore3:${key}`, stringValue);
         return true
     } catch (err) {
-        console.log(`Error Saving ${key}.`);
+        console.log('Error Saving courses.');
         console.log(err);
         return err;
     }
@@ -20,12 +22,12 @@ export async function store(key, value) {
 
 export async function get(key) {
     try {
-        const value = await AsyncStorage.getItem(`@ChamaStore:${key}`);
+        const value = await AsyncStorage.getItem(`@ChamaStore3:${key}`);
         if(value !== null) {
-            return value;
+            return JSON.parse(value);
         }
     } catch (err) {
-        console.log(`Error Retrieving ${key}.`);
+        console.log('Error Retrieving courses.');
         console.log(err);
         return err;
     }

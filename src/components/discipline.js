@@ -23,7 +23,7 @@ class Discipline extends Component {
             <View style={styles.item} >
                 <View style={styles.itemLeft}>
                     <Text style={styles.itemTitle}>{discipline.name}</Text>
-                    <Text style={styles.itemCount}>{getAttendedClasses(discipline.classes).length} of {getPastClasses(discipline.classes).length} classes attended</Text>
+                    <Text style={styles.itemCount}>Presente em {getAttendedClasses(discipline.classes).length} de {getPastClasses(discipline.classes).length} aulas</Text>
                 </View>
                 <View style={styles.itemRight}>
                     {/* <RadialProgress color="#ffffff" size="100" value={getPercentage(discipline)} /> */}
