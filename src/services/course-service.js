@@ -24,21 +24,23 @@ export const setup = async () => {
 
     if (!storageCourses) {
         this.DATABASE = { ...EMPTY_DATABASE };
-        return true;
+    } else {
+        this.DATABASE = storageCourses;
     }
 
-    this.DATABASE = storageCourses;
+    console.log('Initial DB', this.DATABASE);
     this.Database$ = new BehaviorSubject(this.DATABASE);
     return true;
 }
 
 export const getCurrentCourse = () => {
-    console.log('Database:', this.DATABASE);
-    let currentCourse = !!this.DATABASE.courses.length ? this.DATABASE.courses[this.CURRENT_COURSE_ID] : null;
-    console.log('Course ID:', this.CURRENT_COURSE_ID);
-    console.log('Current Course:', currentCourse);
+
     return this.Database$.map(d => {
-        return d.courses[this.CURRENT_COURSE_ID]
+        console.log(d);
+        if (this.DATABASE.courses.length)
+            return d.courses[this.CURRENT_COURSE_ID]
+        
+        return null;
     })
 }
 

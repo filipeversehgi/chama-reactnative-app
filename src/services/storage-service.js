@@ -11,7 +11,7 @@ export async function store(key, value) {
     console.log('- Storing', value);
     const stringValue = JSON.stringify(value);
     try {
-        await AsyncStorage.setItem(`@ChamaStore3:${key}`, stringValue);
+        await AsyncStorage.setItem(`@ChamaStore4:${key}`, stringValue);
         return true
     } catch (err) {
         console.log('Error Saving courses.');
@@ -22,7 +22,7 @@ export async function store(key, value) {
 
 export async function get(key) {
     try {
-        const value = await AsyncStorage.getItem(`@ChamaStore3:${key}`);
+        const value = await AsyncStorage.getItem(`@ChamaStore4:${key}`);
         if(value !== null) {
             return JSON.parse(value);
         }
